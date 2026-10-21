@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Flux brand palette — mirrors mobile/lib/app/colors.dart */
+  --color-bg: #000000;
+  --color-surface: #121212;
+  --color-card: #1c1c1c;
+  --color-elevated: #1a1a1a;
+  --color-border: #262626;
+  --color-text: #f5f5f5;
+  --color-muted: #a8a8a8;
+  --color-faint: #5c5c5c;
+  --color-accent: #0095f6;
+  --color-accent-strong: #3797ef;
+  --color-success: #2dd4a0;
+  --color-error: #ed4956;
+  --color-warning: #f0a830;
+
+  /* Instagram-style brand gradient used by the Flux wordmark */
+  --color-grad-1: #f58529;
+  --color-grad-2: #dd2a7b;
+  --color-grad-3: #8134af;
+  --color-grad-4: #515bd4;
+
+  --font-display: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background-image: linear-gradient(
+      120deg,
+      var(--color-grad-1),
+      var(--color-grad-2) 40%,
+      var(--color-grad-3) 72%,
+      var(--color-grad-4)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .animate-float {
+    animation: float 7s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 8s ease-in-out 1.2s infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}

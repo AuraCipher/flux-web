@@ -72,6 +72,25 @@ describe("VerifyForm", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("does not treat token shape as authorization", async () => {
+    const fetchMock = mockFetch(() =>
+      failureResponse("INVALID_TOKEN", "Invalid verification token"),
+    );
+
+    render(<VerifyForm token="not-a-real-token" />);
+
+    expect(screen.getByLabelText("Password")).toBeTruthy();
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    fillPassword("Password123");
+    submit();
+
+    expect(
+      await screen.findByText(/verification link is invalid/i),
+    ).toBeTruthy();
+    expect(screen.queryByLabelText("Password")).toBeNull();
+  });
+
   it("verifies the email and exposes the app deep link", async () => {
     const fetchMock = mockFetch(() => successResponse());
 

@@ -8,14 +8,16 @@ Flutter app in `../mobile/`; neither is modified here.
 
 ## What is implemented
 
-- Marketing landing page at `/`
+- Marketing landing page at `/` — includes an interactive chat-showcase demo
+  (auto-playing simulated conversations plus an in-page contact search)
 - Password-reset page at `/reset-password?token=…`
 - Email-verification page at `/verify?token=…`
 - Informational placeholders for `/docs`, `/privacy`, `/terms`
 
 The reset and verify pages are functional clients for the existing backend
 endpoints. They do not persist tokens, add analytics, or sign users in after a
-reset.
+reset. Both flows are E2E-proven against the real backend — report in
+`../docs/web-task-04.md`.
 
 ## Getting started
 
@@ -102,18 +104,20 @@ tests/                   Vitest + Testing Library coverage
 
 ## Deployment
 
-Do not switch production email links to this app until the checklist in
-`../docs/web-task-02.md` is complete. The existing static pages in
-`../vercel-pages/` remain the rollback path.
-
 At minimum:
 
 1. Set `NEXT_PUBLIC_API_BASE_URL` to the production API origin and
-   `NEXT_PUBLIC_SITE_URL` to the deployed web origin in Vercel.
-2. Add the web origin to the backend's `CORS_ORIGINS`.
-3. Deploy a preview; test with non-production reset/verification tokens.
-4. Only then update the backend's `FRONTEND_URL` / `VERIFICATION_URL` and keep
-   `vercel-pages/` available for rollback.
+   `NEXT_PUBLIC_SITE_URL` to the deployed web origin in Vercel — both bake in
+   at build time, so redeploy after any change.
+2. Add the web origin to the backend's `CORS_ORIGINS` and deploy the backend
+   with real email credentials (checklist: `../docs/web-task-04.md` §13; the
+   backend's planned home is a single Oracle Cloud VPS — runbook at
+   `../execution/20-deployment/phase-01-backend-deploy/vps-oracle.md`).
+3. Deploy a preview; test `verify` and `reset-password` with fresh signups
+   end-to-end on the deployed pair.
+4. Only then switch the backend's production `FRONTEND_URL` /
+   `VERIFICATION_URL` to this app. The static pages in `../vercel-pages/`
+   remain the rollback path.
 
 ## Brand
 

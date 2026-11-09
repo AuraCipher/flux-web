@@ -9,7 +9,7 @@
  * - Turn every failure into an AuthApiError with a stable machine code.
  */
 
-const DEV_API_BASE_URL = "http://localhost:3000";
+const DEV_API_BASE_URL = "http://localhost:5000";
 const REQUEST_TIMEOUT_MS = 15_000;
 
 const CONFIG_ERROR_MESSAGE =

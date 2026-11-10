@@ -144,7 +144,7 @@ describe("ResetPasswordForm", () => {
     render(<ResetPasswordForm token={VALID_RESET_TOKEN} />);
     await screen.findByLabelText("New password");
 
-    fillForm(STRONG_PASSWORD, "Password124");
+    fillForm(STRONG_PASSWORD, "Password456!");
     submit();
 
     expect(await screen.findByText(/passwords do not match/i)).toBeTruthy();

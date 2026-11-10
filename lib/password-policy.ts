@@ -41,6 +41,13 @@ export function validateNewPassword(password: string): ValidationResult {
     };
   }
 
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    return {
+      valid: false,
+      message: "Password must contain at least one special character",
+    };
+  }
+
   return { valid: true };
 }
 
@@ -56,7 +63,7 @@ export function validatePasswordConfirmation(
 }
 
 export type PasswordCheck = {
-  id: "length" | "uppercase" | "lowercase" | "digit";
+  id: "length" | "uppercase" | "lowercase" | "digit" | "special";
   label: string;
   met: boolean;
 };
@@ -84,6 +91,11 @@ export function getPasswordChecks(password: string): PasswordCheck[] {
       id: "digit",
       label: "One number",
       met: /[0-9]/.test(password),
+    },
+    {
+      id: "special",
+      label: "One special character",
+      met: /[^A-Za-z0-9]/.test(password),
     },
   ];
 }

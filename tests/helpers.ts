@@ -2,7 +2,7 @@ import { vi } from "vitest";
 
 export const VALID_RESET_TOKEN = "a".repeat(64);
 export const VALID_VERIFY_TOKEN = "verify-token-123";
-export const STRONG_PASSWORD = "Password123";
+export const STRONG_PASSWORD = "Password123!";
 
 export type MockFetchResponse = {
   ok: boolean;

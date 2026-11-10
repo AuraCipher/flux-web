@@ -7,11 +7,11 @@ import {
 
 describe("validateNewPassword", () => {
   it("accepts a password that satisfies every rule", () => {
-    expect(validateNewPassword("Password123")).toEqual({ valid: true });
+    expect(validateNewPassword("Password123!")).toEqual({ valid: true });
   });
 
   it("accepts the 128-character boundary", () => {
-    const password = `Aa1${"a".repeat(125)}`;
+    const password = `Aa1${"a".repeat(124)}!`;
 
     expect(password).toHaveLength(128);
     expect(validateNewPassword(password)).toEqual({ valid: true });
@@ -54,6 +54,13 @@ describe("validateNewPassword", () => {
       message: "Password must contain at least one digit",
     });
   });
+
+  it("requires a special character", () => {
+    expect(validateNewPassword("Password123")).toEqual({
+      valid: false,
+      message: "Password must contain at least one special character",
+    });
+  });
 });
 
 describe("validatePasswordConfirmation", () => {
@@ -73,11 +80,12 @@ describe("validatePasswordConfirmation", () => {
 
 describe("getPasswordChecks", () => {
   it("reports each requirement independently", () => {
-    expect(getPasswordChecks("Password123")).toEqual([
+    expect(getPasswordChecks("Password123!")).toEqual([
       { id: "length", label: "8–128 characters", met: true },
       { id: "uppercase", label: "One uppercase letter", met: true },
       { id: "lowercase", label: "One lowercase letter", met: true },
       { id: "digit", label: "One number", met: true },
+      { id: "special", label: "One special character", met: true },
     ]);
   });
 
@@ -86,6 +94,7 @@ describe("getPasswordChecks", () => {
       false,
       false,
       true,
+      false,
       false,
     ]);
   });

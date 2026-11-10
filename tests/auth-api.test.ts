@@ -53,7 +53,7 @@ describe("getApiBaseUrl", () => {
     delete process.env.NEXT_PUBLIC_API_BASE_URL;
     setNodeEnv("development");
 
-    expect(getApiBaseUrl()).toBe("http://localhost:3000");
+    expect(getApiBaseUrl()).toBe("http://localhost:5000");
   });
 
   it("fails closed in production when no API origin is configured", () => {
